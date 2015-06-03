@@ -11,7 +11,7 @@ function midiMessageReceived( e ) {
         channel: b,
         
     };
-    $('#events').val($('#events').val() + '\r\n' + JSON.stringify(obj));
+    $('#crossfader').slider({max: 127, min: 0,value: 0});
 }
 
 //window.addEventListener('load', function() {
@@ -42,3 +42,4 @@ function log(text) {
     $('#log').append(text +  '<br />');
     
 }
+
