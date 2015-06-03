@@ -7,11 +7,9 @@ function midiMessageReceived( e ) {
   var c = e.data[2];
 
     var obj = { 
-      
-        channel: b,
-        
+      c: c 
     };
-    $('#crossfader').slider({max: 127, min: 0,value: 0});
+    $('#crossfader').slider(c);
 }
 
 //window.addEventListener('load', function() {
@@ -36,10 +34,3 @@ function gotMIDI( midiAccess ) {
 function didntGetMIDI( error ) {
   log("No MIDI access: " + error.code );
 }
-
-
-function log(text) {
-    $('#log').append(text +  '<br />');
-    
-}
-

@@ -1,5 +1,3 @@
-party = false;
-
 current_decks = {left: '0ymI54DuMj8',right:'jRetF46d2Vk'}
 
 function onYouTubePlayerReady(playerId) {
@@ -19,7 +17,7 @@ function load_vid(channel, video_id) {
 }
 
 $(function() {
-    $('#crossfader').slider({max: 200, min: 0,value: 0});
+    $('#crossfader').slider({max: 127, min: 0,value: 0});
     $('#crossfader').bind('slide', function(event, ui) {
         var left_val = Math.max(Math.min(190 - parseInt($('#crossfader').slider('option','value')), 100), 0);
         var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option','value')), 110) - 10, 0);
@@ -162,15 +160,4 @@ $(function() {
       this.select();
     });
 
-    $('#party').click(function() {
-      if(party) {
-        $('body').css('backgroundImage','url(purplestars.gif)');
-        $('#party').text('party');
-        party = false;
-      } else {
-        $('body').css('backgroundImage','url(party_animals_e0.gif)');
-        $('#party').text('serious');
-        party = true;
-      }
-    });
 });
