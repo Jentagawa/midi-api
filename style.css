@@ -25,13 +25,15 @@
 }
 
 #crossfader {
-    margin: 0 auto;
+	float: left;
+	margin-top: 500px;
+    margin-left: 30px;
+    margin-right: 30px;
     width: 25%;
-    clear: both;
 }
 
 .pages {
-	margin-top: 15px;
+    margin-top: 15px;
 }
 
 .page {
@@ -57,4 +59,25 @@
     cursor: default;
     background-color: #337ab7;
     border-color: #337ab7;
+}
+
+.ui-slider .ui-slider-handle {
+    border: 1px solid #d3d3d3;
+    background: #e6e6e6 url("images/ui-bg_glass_75_e6e6e6_1x400.png") 50% 50% repeat-x;
+    font-weight: normal;
+    color: #555555;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+    top: -1.2em;
+}
+
+.ui-slider .ui-slider-handle {
+    height: 3.2em;
+}
+
+.ui-widget-content {
+    border: none;
+    background: #838383 50% top repeat-x;
+    color: #333333;
 }
