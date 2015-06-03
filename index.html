@@ -4,7 +4,9 @@
 
 <head>
     <title>TESTING MIDI API</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link type="text/css" href="jui.css" rel="stylesheet" />
+    <link type="text/css" href="style.css" rel="stylesheet" />
     <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
     <script type="text/javascript" src="swfobject/swfobject.js"></script>
     <script type="text/javascript" src="ui-sliders.js"></script>
@@ -13,80 +15,85 @@
 </head>
 
 <body>
-    <div class="left-deck">
-        <div id="left-player">LOL NOPE</div>
-        <script type="text/javascript">
-        // read the url & get the initial traxxx
-        var terminator = 'dYjWCvVDaKc';
-        //var terminator = 'blcjWLxf9Ko';
-        starting_hash_videos = document.location.hash.split('#');
-        if (starting_hash_videos.length > 1) {
-            starting_hash_videos = starting_hash_videos[1];
-            start_vid_left = starting_hash_videos.split('/')[0];
-            start_vid_left = start_vid_left ? start_vid_left : terminator;
-        } else {
-            start_vid_left = terminator;
-        }
+    <div id="container">
+        <div class="left-deck">
+            <div id="left-player"></div>
+            <script type="text/javascript">
+            // read the url & get the initial traxxx
+            var leftfirst = '0ymI54DuMj8';
+            starting_hash_videos = document.location.hash.split('#');
+            if (starting_hash_videos.length > 1) {
+                starting_hash_videos = starting_hash_videos[1];
+                start_vid_left = starting_hash_videos.split('/')[0];
+                start_vid_left = start_vid_left ? start_vid_left : leftfirst;
+            } else {
+                start_vid_left = leftfirst;
+            }
 
-        var params = {
-            allowScriptAccess: "always"
-        };
-        var atts = {
-            id: "left-player"
-        };
-        swfobject.embedSWF("http://www.youtube.com/v/" + start_vid_left + "&enablejsapi=1&playerapiid=yt-left-player&loop=1",
-            "left-player", "425", "336", "8", null, null, params, atts);
-        </script>
-        <div id="left-selector" class="selector">
-            <input type="text" value="terminator trance remix" id="left-selector-input" />
-            <button>SEARCH</button>
-            <div id="left-crate" class="crate">
-            </div>
-            <div id="left-crate-title" class="crate-title">
+            var params = {
+                allowScriptAccess: "always"
+            };
+            var atts = {
+                id: "left-player"
+            };
+            swfobject.embedSWF("http://www.youtube.com/v/" + start_vid_left + "&enablejsapi=1&playerapiid=yt-left-player&loop=1",
+                "left-player", "425", "336", "8", null, null, params, atts);
+            </script>
+            <div id="left-selector" class="selector">
+                <div class="mb15">
+                    <input type="text" value="kaytranada" id="left-selector-input" />
+                    <button class="btn">SEARCH</button>
+                </div>
+                <div id="left-crate" class="crate mb15">
+                </div>
+                <div id="left-crate-title" class="crate-title">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="right-deck">
-        <div id="right-player">LOL NOPE</div>
-        <script type="text/javascript">
-        // read the url & get the initial traxxx
-        var axel_f = 'giIoifHUUkI';
-        starting_hash_videos = document.location.hash.split('#');
-        if (starting_hash_videos.length > 1) {
-            starting_hash_videos = starting_hash_videos[1];
-            start_vid_right = starting_hash_videos.split('/')[1];
-            start_vid_right = start_vid_right ? start_vid_right : axel_f;
-        } else {
-            start_vid_right = axel_f;
-        }
+        <div class="right-deck">
+            <div id="right-player"></div>
+            <script type="text/javascript">
+            // read the url & get the initial traxxx
+            var rightfirst = 'jRetF46d2Vk';
+            starting_hash_videos = document.location.hash.split('#');
+            if (starting_hash_videos.length > 1) {
+                starting_hash_videos = starting_hash_videos[1];
+                start_vid_right = starting_hash_videos.split('/')[1];
+                start_vid_right = start_vid_right ? start_vid_right : rightfirst;
+            } else {
+                start_vid_right = rightfirst;
+            }
 
-        var params = {
-            allowScriptAccess: "always"
-        };
-        var atts = {
-            id: "right-player"
-        };
-        swfobject.embedSWF("http://www.youtube.com/v/" + start_vid_right + "&enablejsapi=1&playerapiid=yt-right-player&loop=1",
-            "right-player", "425", "336", "8", null, null, params, atts);
-        </script>
-        <div id="right-selector" class="selector">
-            <input type="text" value="beverly hills cop trance remix" id="right-selector-input" />
-            <button>SEARCH</button>
-            <div id="right-crate" class="crate">
-            </div>
-            <div id="right-crate-title" class="crate-title">
+            var params = {
+                allowScriptAccess: "always"
+            };
+            var atts = {
+                id: "right-player"
+            };
+            swfobject.embedSWF("http://www.youtube.com/v/" + start_vid_right + "&enablejsapi=1&playerapiid=yt-right-player&loop=1",
+                "right-player", "425", "336", "8", null, null, params, atts);
+            </script>
+            <div id="right-selector" class="selector">
+                <div class="mb15">
+                    <input type="text" value="snakehips" id="right-selector-input" />
+                    <button class="btn">SEARCH</button>
+                </div>
+                <div id="right-crate" class="crate mb15">
+                </div>
+                <div id="right-crate-title" class="crate-title">
+                </div>
             </div>
         </div>
+        <div id="crossfader"></div>
+        <script type="text/javascript">
+        // read the url & get the initial traxxx
+        starting_hash_videos = document.location.hash.split('#');
+        if (starting_hash_videos.length > 1) {
+            document.getElementById('right-selector-input').value = '';
+            document.getElementById('left-selector-input').value = '';
+        }
+        </script>
     </div>
-    <div id="crossfader"></div>
-    <script type="text/javascript">
-    // read the url & get the initial traxxx
-    starting_hash_videos = document.location.hash.split('#');
-    if (starting_hash_videos.length > 1) {
-        document.getElementById('right-selector-input').value = '';
-        document.getElementById('left-selector-input').value = '';
-    }
-    </script>
 </body>
 
 </html>

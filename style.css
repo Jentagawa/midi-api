@@ -1,0 +1,30 @@
+#container {
+	margin: 150px auto;
+	width: 80%;
+}
+
+.left-deck {
+    float: left;
+}
+
+.right-deck {
+    float: right;
+}
+
+.mb20 {
+	margin-bottom: 20px;
+}
+
+.mb15 {
+	margin-bottom: 15px;
+}
+
+#right-player, #left-player {
+	margin-bottom: 20px;
+}
+
+#crossfader {
+	margin: 0 auto;
+	width: 25%;
+	clear: both;
+}

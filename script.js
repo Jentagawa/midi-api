@@ -1,6 +1,6 @@
 party = false;
 
-current_decks = {left: 'dYjWCvVDaKc',right:'9TpQCG4LtUc'}
+current_decks = {left: '0ymI54DuMj8',right:'jRetF46d2Vk'}
 
 function onYouTubePlayerReady(playerId) {
     left_player = document.getElementById('left-player')
