@@ -1,6 +1,6 @@
 #container {
-	margin: 150px auto;
-	width: 80%;
+    margin: 150px auto;
+    width: 80%;
 }
 
 .left-deck {
@@ -12,19 +12,49 @@
 }
 
 .mb20 {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .mb15 {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
-#right-player, #left-player {
-	margin-bottom: 20px;
+#right-player,
+#left-player {
+    margin-bottom: 20px;
 }
 
 #crossfader {
-	margin: 0 auto;
-	width: 25%;
-	clear: both;
+    margin: 0 auto;
+    width: 25%;
+    clear: both;
+}
+
+.pages {
+	margin-top: 15px;
+}
+
+.page {
+    position: relative;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pages a:hover {
+    cursor: pointer;
+    color: #23527c;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pages span {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
 }

@@ -60,7 +60,7 @@ $(function() {
             });
 
             if (left_searcher.cursor) {
-                $('#left-crate').append('<div class="pages"><strong>Pages:</strong></div>');
+                $('#left-crate').append('<div class="pages"></div>');
                 var pages = left_searcher.cursor.pages;
                 for(var i=0; i<pages.length; i++) {
                     if(i == left_searcher.cursor.currentPageIndex) {
@@ -108,7 +108,7 @@ $(function() {
             });
             
             if (right_searcher.cursor) {
-                $('#right-crate').append('<div class="pages"><strong>Pages:</strong></div>');
+                $('#right-crate').append('<div class="pages"></div>');
                 var pages = right_searcher.cursor.pages;
                 for(var i=0; i<pages.length; i++) {
                     if(i == right_searcher.cursor.currentPageIndex) {
