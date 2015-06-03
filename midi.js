@@ -12,6 +12,7 @@ function midiMessageReceived( e ) {
     $('#crossfader').slider(c);
 }
 
+
 //window.addEventListener('load', function() {
   log('Connecting to controller.');
   navigator.requestMIDIAccess().then( gotMIDI, didntGetMIDI );
@@ -34,3 +35,10 @@ function gotMIDI( midiAccess ) {
 function didntGetMIDI( error ) {
   log("No MIDI access: " + error.code );
 }
+
+
+function log(text) {
+    $('#log').append(text +  '<br />');
+    
+}
+
