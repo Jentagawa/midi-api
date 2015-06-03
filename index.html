@@ -1,6 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="ja">
 
 <head>
     <title>TESTING MIDI API</title>
@@ -12,12 +11,25 @@
     <script type="text/javascript" src="ui-sliders.js"></script>
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript" src="script.js"></script>
-    <script type="text/javascript" src="midi.js"></script>
 </head>
 
 <body>
     <div id="container">
         <h1 class="text-center">MIDI TEST</h1>
+        <div class="text-center mb15">
+            <form name="input_device_select">
+                <select name="ids" onChange="inputDeviceSelect(this);">
+                    <option value="0">No Device
+                </select>
+            </form>
+            <script>
+            setInputMenuID(document.input_device_select.ids);
+            </script>
+        </div>
+        <textarea id="events" cols="80" rows="10"></textarea>
+        <div id="log">
+            <h3>Log:</h3>
+        </div>
         <div class="left-deck">
             <div id="left-player"></div>
             <script type="text/javascript">

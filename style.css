@@ -1,5 +1,5 @@
 #container {
-    margin: 150px auto;
+    margin: 30px auto;
     width: 80%;
 }
 
@@ -80,4 +80,8 @@
     border: none;
     background: #838383 50% top repeat-x;
     color: #333333;
+}
+
+.footer {
+    clear: both;
 }
