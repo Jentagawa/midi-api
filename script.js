@@ -1,3 +1,15 @@
+log('MIDI controller detector started.');
+
+function midiMessageReceived(e) {
+    var cmd = e.data[0] >> 4;
+    var channel = e.data[0] & 0xf;
+    var b = e.data[1];
+    var c = e.data[2];
+    var obj = {
+        c: c
+    };
+}
+
 party = false;
 
 current_decks = {left: '0ymI54DuMj8',right:'jRetF46d2Vk'}
