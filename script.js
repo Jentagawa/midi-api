@@ -1,3 +1,5 @@
+party = false;
+
 current_decks = {left: '0ymI54DuMj8',right:'jRetF46d2Vk'}
 
 function onYouTubePlayerReady(playerId) {
@@ -160,4 +162,15 @@ $(function() {
       this.select();
     });
 
+    $('#party').click(function() {
+      if(party) {
+        $('body').css('backgroundImage','url(purplestars.gif)');
+        $('#party').text('party');
+        party = false;
+      } else {
+        $('body').css('backgroundImage','url(party_animals_e0.gif)');
+        $('#party').text('serious');
+        party = true;
+      }
+    });
 });
