@@ -7,11 +7,12 @@ function midiMessageReceived( e ) {
   var c = e.data[2];
 
     var obj = { 
-      c: c 
+      
+        channel: b,
+        
     };
-    $('#crossfader').slider(c);
+    $('#crossfader').slider({max: 127, min: 0,value: 0});
 }
-
 
 //window.addEventListener('load', function() {
   log('Connecting to controller.');
