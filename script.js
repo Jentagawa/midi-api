@@ -17,7 +17,7 @@ function load_vid(channel, video_id) {
 }
 
 $(function() {
-    $('#crossfader').slider({max: 127, min: 0,value: 0});
+    $('#crossfader').slider({max: 200, min: 0,value: 0});
     $('#crossfader').bind('slide', function(event, ui) {
         var left_val = Math.max(Math.min(190 - parseInt($('#crossfader').slider('option','value')), 100), 0);
         var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option','value')), 110) - 10, 0);
