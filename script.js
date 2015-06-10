@@ -68,8 +68,8 @@ $(function() {
         value: 0
     });
     $('#crossfader').bind('slide', function(event, ui) {
-        var left_val = Math.max(Math.min(log - parseInt($('#crossfader').slider('option', 'value')), 100), 0);
-        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option', 'value')), log) - 10, 0);
+        var left_val = Math.max(Math.min(JSON.stringify(obj) - parseInt($('#crossfader').slider('option', 'value')), 100), 0);
+        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option', 'value')), JSON.stringify(obj)) - 10, 0);
 
         left_player.setVolume(left_val);
         right_player.setVolume(right_val);
