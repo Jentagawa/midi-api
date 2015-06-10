@@ -1,9 +1,6 @@
 log('MIDI controller detector started.');
 
 function midiMessageReceived(e) {
-        var cmd = e.data[0] >> 4;
-        var channel = e.data[0] & 0xf;
-        var b = e.data[1];
         var c = e.data[2];
         var obj = {
             c
@@ -68,8 +65,11 @@ $(function() {
         value: 0
     });
     $('#crossfader').bind('slide', function(event, ui) {
-        var left_val = Math.max(Math.min(JSON.stringify(obj) - parseInt($('#crossfader').slider('option', 'value')), 100), 0);
-        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option', 'value')), JSON.stringify(obj)) - 10, 0);
+        function midiMessageReceived(e) {
+        var c = e.data[2];
+        }
+        var left_val = Math.max(Math.min(c - parseInt($('#crossfader').slider('option', 'value')), 100), 0);
+        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option', 'value')), c) - 10, 0);
 
         left_player.setVolume(left_val);
         right_player.setVolume(right_val);
