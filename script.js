@@ -65,11 +65,8 @@ $(function() {
         value: 0
     });
     $('#crossfader').bind('slide', function(event, ui) {
-        function midiMessageReceived(e) {
-        var c = e.data[2];
-        }
-        var left_val = Math.max(Math.min(c - parseInt($('#crossfader').slider('option', 'value')), 100), 0);
-        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option', 'value')), c) - 10, 0);
+        var left_val = Math.max(Math.min(e.data[2] - parseInt($('#crossfader').slider('option', 'value')), 100), 0);
+        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option', 'value')), e.data[2]) - 10, 0);
 
         left_player.setVolume(left_val);
         right_player.setVolume(right_val);
