@@ -1,18 +1,48 @@
 log('MIDI controller detector started.');
+function midiMessageReceived( e ) {
+  var cmd = e.data[0] >> 4;
+  var channel = e.data[0] & 0xf;
+  var b = e.data[1];
+  var c = e.data[2];
 
-function midiMessageReceived(e) {
-    var cmd = e.data[0] >> 4;
-    var channel = e.data[0] & 0xf;
-    var b = e.data[1];
-    var c = e.data[2];
-    var obj = {
-        c: c
+    var obj = { 
+        c  
     };
+    $('#events').val($('#events').val() + '\r\n' + JSON.stringify(obj));
 }
+//window.addEventListener('load', function() {
+  log('Connecting to controller.');
+  navigator.requestMIDIAccess().then( gotMIDI, didntGetMIDI );
+//});
+
+function gotMIDI( midiAccess ) {
+  midi = midiAccess;
+  if ((typeof(midiAccess.inputs) == "function")) {  //Old Skool MIDI inputs() code
+    var ins = midiAccess.inputs();
+    log('All inputs: ', JSON.stringify(ins));
+    for (var i=0; i<ins.length; i++)
+      ins[i].onmidimessage = midiMessageReceived;
+  } else {
+    var inputs=midiAccess.inputs.values();
+    for ( var input = inputs.next(); input && !input.done; input = inputs.next())
+      input.value.onmidimessage = midiMessageReceived;
+  }
+}
+
+function didntGetMIDI( error ) {
+  log("No MIDI access: " + error.code );
+}
+
+
+function log(text) {
+    $('#log').append(text +  '<br />');
+    
+}
+
 
 party = false;
 
-current_decks = {left: '0ymI54DuMj8',right:'jRetF46d2Vk'}
+current_decks = {left:'0ymI54DuMj8',right:'jRetF46d2Vk'}
 
 function onYouTubePlayerReady(playerId) {
     left_player = document.getElementById('left-player')
@@ -26,15 +56,14 @@ function load_vid(channel, video_id) {
     var player_elem = document.getElementById(channel + '-player');
     player_elem.loadVideoById(video_id);
     current_decks[channel] = video_id;
-
     document.location.hash = current_decks.left + '/' + current_decks.right;
 }
 
 $(function() {
-    $('#crossfader').slider({obj,value: 0});
+    $('#crossfader').slider({max: 127, min: 0,value: 0});
     $('#crossfader').bind('slide', function(event, ui) {
-        var left_val = Math.max(Math.min(190 - parseInt($('#crossfader').slider('option','value')), 100), 0);
-        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option','value')), 110) - 10, 0);
+        var left_val = Math.max(Math.min(JSON.stringify(obj) - parseInt($('#crossfader').slider('option','value')), 100), 0);
+        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option','value')), JSON.stringify(obj)) - 10, 0);
 
         left_player.setVolume(left_val);
         right_player.setVolume(right_val);
