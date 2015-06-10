@@ -65,6 +65,14 @@ $(function() {
         value: 0
     });
     $('#crossfader').bind('slide', function(event, ui) {
+        log('MIDI controller detector started.');
+        function midiMessageReceived(e) {
+            var c = e.data[2];
+            var obj = {
+                c
+            };
+            $('#events').val($('#events').val() + '\r\n' + JSON.stringify(obj));
+        }
         var left_val = Math.max(Math.min(e.data[2] - parseInt($('#crossfader').slider('option', 'value')), 100), 0);
         var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option', 'value')), e.data[2]) - 10, 0);
 
