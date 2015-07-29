@@ -306,6 +306,8 @@ $(function() {
 
     render = function() {
         tsumami.style.left = view.position / 127 * 100　 + '%';
+        left_player.setVolume(view.position / 127 * 100);
+	    right_player.setVolume(100-(view.position / 127 * 100));
         return window.requestAnimationFrame(render);
     };
     </script>
