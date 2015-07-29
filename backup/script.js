@@ -1,5 +1,3 @@
-party = false;
-
 current_decks = {
     left: '0ymI54DuMj8',
     right: 'jRetF46d2Vk'
@@ -21,20 +19,10 @@ function load_vid(channel, video_id) {
 }
 
 $(function() {
-    function midiMessageReceived(e) {
-        var c = e.data[2];
-        var obj = {
-            c
-        };
-    }
-    $('#crossfader').slider({
-        max: 127,
-        min: 0,
-        value: 0
-    });
+    $('#crossfader').slider({max: 200, min: 0,value: 0});
     $('#crossfader').bind('slide', function(event, ui) {
-        var left_val = Math.max(Math.min(JSON.stringify(obj) - parseInt($('#crossfader').slider('option', 'value')), 100), 0);
-        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option', 'value')), JSON.stringify(obj)) - 10, 0);
+        var left_val = Math.max(Math.min(190 - parseInt($('#crossfader').slider('option','value')), 100), 0);
+        var right_val = Math.max(Math.min(parseInt($('#crossfader').slider('option','value')), 110) - 10, 0);
 
         left_player.setVolume(left_val);
         right_player.setVolume(right_val);
@@ -174,17 +162,5 @@ $(function() {
 
     $('input[type=text]').focus(function() {
         this.select();
-    });
-
-    $('#party').click(function() {
-        if (party) {
-            $('body').css('backgroundImage', 'url(purplestars.gif)');
-            $('#party').text('party');
-            party = false;
-        } else {
-            $('body').css('backgroundImage', 'url(party_animals_e0.gif)');
-            $('#party').text('serious');
-            party = true;
-        }
     });
 });

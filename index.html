@@ -1,87 +1,249 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 
 <head>
-    <title>TESTING MIDI API</title>
+    <meta charset="UTF-8" />
+    <title>MIDI API TEST</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link type="text/css" href="jui.css" rel="stylesheet" />
-    <link type="text/css" href="style.css" rel="stylesheet" />
-    <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
-    <script type="text/javascript" src="swfobject/swfobject.js"></script>
-    <script type="text/javascript" src="ui-sliders.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css" />
+    <link type="text/css" rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="swfobject.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
-    <script type="text/javascript" src="script.js"></script>
 </head>
+<script>
+current_decks = {
+    left: '0ymI54DuMj8',
+    right: 'jRetF46d2Vk'
+}
+
+function onYouTubePlayerReady(playerId) {
+    left_player = document.getElementById('left-player')
+    right_player = document.getElementById('right-player')
+    left_player.setVolume(100);
+    right_player.setVolume(0);
+}
+
+function load_vid(channel, video_id) {
+    var player_elem = document.getElementById(channel + '-player');
+    player_elem.loadVideoById(video_id);
+    current_decks[channel] = video_id;
+    document.location.hash = current_decks.left + '/' + current_decks.right;
+}
+
+
+
+$(function() {
+
+    function search_loaded() {
+        return true;
+    }
+
+    google.load('search', '1', {
+        'callback': search_loaded
+    });
+
+    function setup_goog() {
+        left_searcher = new google.search.VideoSearch();
+        left_searcher.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+
+        left_searcher.setSearchCompleteCallback(null, function() {
+            $('#left-crate').empty();
+            for (var i = 0; i < left_searcher.results.length; i++) {
+                var result = left_searcher.results[i];
+                if (result.videoType != "YouTube") {
+                    continue;
+                }
+
+                var thumb_url = result.tbUrl;
+                var video_id = result.tbUrl.split('/')[4];
+                $('#left-crate').append(
+                    '<a class="crate-vid" href="javascript:void(0);" title="' + result.title + '" onclick="load_vid(\'left\',\'' + video_id + '\');"><img width="50" src="' + thumb_url + '" /></a>'
+                );
+            }
+            $('#left-crate .crate-vid').hover(function() {
+                $('#left-crate-title').text($(this).attr('title'));
+            }, function() {
+                $('#left-crate-title').empty();
+            });
+
+            if (left_searcher.cursor) {
+                $('#left-crate').append('<div class="pages"></div>');
+                var pages = left_searcher.cursor.pages;
+                for (var i = 0; i < pages.length; i++) {
+                    if (i == left_searcher.cursor.currentPageIndex) {
+                        $('#left-crate .pages').append(
+                            '<span class="page">' + pages[i].label + '</a>'
+                        );
+                    } else {
+                        $('#left-crate .pages').append(
+                            '<a class="page" pagenum="' + i + '">' + pages[i].label + '</a>'
+                        );
+                    }
+                }
+
+                $('#left-crate a.page').click(function() {
+                    left_searcher.gotoPage(parseInt($(this).attr('pagenum')));
+                });
+            }
+
+        });
+
+        // right
+
+        right_searcher = new google.search.VideoSearch();
+        right_searcher.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+
+        right_searcher.setSearchCompleteCallback(null, function() {
+            $('#right-crate').empty();
+
+            for (var i = 0; i < right_searcher.results.length; i++) {
+                var result = right_searcher.results[i];
+                if (result.videoType != "YouTube") {
+                    continue;
+                }
+
+                var thumb_url = result.tbUrl;
+                var video_id = result.tbUrl.split('/')[4];
+                $('#right-crate').append(
+                    '<a class="crate-vid" href="javascript:void(0);" title="' + result.title + '" onclick="load_vid(\'right\',\'' + video_id + '\');"><img width="50" src="' + thumb_url + '" /></a>'
+                );
+            }
+            $('#right-crate .crate-vid').hover(function() {
+                $('#right-crate-title').text($(this).attr('title'));
+            }, function() {
+                $('#right-crate-title').empty();
+            });
+
+            if (right_searcher.cursor) {
+                $('#right-crate').append('<div class="pages"></div>');
+                var pages = right_searcher.cursor.pages;
+                for (var i = 0; i < pages.length; i++) {
+                    if (i == right_searcher.cursor.currentPageIndex) {
+                        $('#right-crate .pages').append(
+                            '<span class="page">' + pages[i].label + '</a>'
+                        );
+                    } else {
+                        $('#right-crate .pages').append(
+                            '<a class="page" pagenum="' + i + '">' + pages[i].label + '</a>'
+                        );
+                    }
+                }
+
+                $('#right-crate a.page').click(function() {
+                    right_searcher.gotoPage(parseInt($(this).attr('pagenum')));
+                });
+            }
+
+        });
+
+        // trigger the first search
+        left_searcher.execute($('#left-selector input').val());
+        right_searcher.execute($('#right-selector input').val());
+    }
+
+    google.setOnLoadCallback(setup_goog);
+
+    $('#left-selector button').click(function() {
+        var input_val = $(this).siblings('input').val();
+        left_searcher.execute(input_val)
+    });
+
+    $('#left-selector input').keyup(function(ev) {
+        if (ev.keyCode == 13) {
+            $('#left-selector button').click();
+        }
+    });
+
+    $('#right-selector button').click(function() {
+        var input_val = $(this).siblings('input').val();
+        right_searcher.execute(input_val)
+    });
+
+    $('#right-selector input').keyup(function(ev) {
+        if (ev.keyCode == 13) {
+            $('#right-selector button').click();
+        }
+    });
+
+    $('input[type=text]').focus(function() {
+        this.select();
+    });
+});
+</script>
 
 <body>
-    <div id="container">
+    <div class="container">
         <h1 class="text-center">MIDI TEST</h1>
-        <div class="left-deck">
-            <div id="left-player"></div>
-            <script type="text/javascript">
-            // read the url & get the initial traxxx
-            var leftfirst = '0ymI54DuMj8';
-            starting_hash_videos = document.location.hash.split('#');
-            if (starting_hash_videos.length > 1) {
-                starting_hash_videos = starting_hash_videos[1];
-                start_vid_left = starting_hash_videos.split('/')[0];
-                start_vid_left = start_vid_left ? start_vid_left : leftfirst;
-            } else {
-                start_vid_left = leftfirst;
-            }
+        <div class="row-fluid">
+            <div class="left-deck col-md-6">
+                <div id="left-player"></div>
+                <script type="text/javascript">
+                // read the url & get the initial traxxx
+                var leftfirst = '0ymI54DuMj8';
+                starting_hash_videos = document.location.hash.split('#');
+                if (starting_hash_videos.length > 1) {
+                    starting_hash_videos = starting_hash_videos[1];
+                    start_vid_left = starting_hash_videos.split('/')[0];
+                    start_vid_left = start_vid_left ? start_vid_left : leftfirst;
+                } else {
+                    start_vid_left = leftfirst;
+                }
 
-            var params = {
-                allowScriptAccess: "always"
-            };
-            var atts = {
-                id: "left-player"
-            };
-            swfobject.embedSWF("http://www.youtube.com/v/" + start_vid_left + "&enablejsapi=1&playerapiid=yt-left-player&loop=1",
-                "left-player", "425", "336", "8", null, null, params, atts);
-            </script>
-            <div id="left-selector" class="selector">
-                <div class="mb15">
-                    <input type="text" value="kaytranada" id="left-selector-input" />
-                    <button class="btn">SEARCH</button>
-                </div>
-                <div id="left-crate" class="crate mb15">
-                </div>
-                <div id="left-crate-title" class="crate-title">
+                var params = {
+                    allowScriptAccess: "always"
+                };
+                var atts = {
+                    id: "left-player"
+                };
+                swfobject.embedSWF("http://www.youtube.com/v/" + start_vid_left + "&enablejsapi=1&playerapiid=yt-left-player&loop=1",
+                    "left-player", "425", "336", "8", null, null, params, atts);
+                </script>
+                <div id="left-selector" class="selector">
+                    <div class="mb15">
+                        <input type="text" value="kaytranada" id="left-selector-input" />
+                        <button class="btn">SEARCH</button>
+                    </div>
+                    <div id="left-crate" class="crate mb15">
+                    </div>
+                    <div id="left-crate-title" class="crate-title">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="crossfader"></div>
-        <div class="right-deck">
-            <div id="right-player"></div>
-            <script type="text/javascript">
-            // read the url & get the initial traxxx
-            var rightfirst = 'jRetF46d2Vk';
-            starting_hash_videos = document.location.hash.split('#');
-            if (starting_hash_videos.length > 1) {
-                starting_hash_videos = starting_hash_videos[1];
-                start_vid_right = starting_hash_videos.split('/')[1];
-                start_vid_right = start_vid_right ? start_vid_right : rightfirst;
-            } else {
-                start_vid_right = rightfirst;
-            }
+            <div class="right-deck col-md-6">
+                <div id="right-player"></div>
+                <script type="text/javascript">
+                // read the url & get the initial traxxx
+                var rightfirst = 'jRetF46d2Vk';
+                starting_hash_videos = document.location.hash.split('#');
+                if (starting_hash_videos.length > 1) {
+                    starting_hash_videos = starting_hash_videos[1];
+                    start_vid_right = starting_hash_videos.split('/')[1];
+                    start_vid_right = start_vid_right ? start_vid_right : rightfirst;
+                } else {
+                    start_vid_right = rightfirst;
+                }
 
-            var params = {
-                allowScriptAccess: "always"
-            };
-            var atts = {
-                id: "right-player"
-            };
-            swfobject.embedSWF("http://www.youtube.com/v/" + start_vid_right + "&enablejsapi=1&playerapiid=yt-right-player&loop=1",
-                "right-player", "425", "336", "8", null, null, params, atts);
-            </script>
-            <div id="right-selector" class="selector">
-                <div class="mb15">
-                    <input type="text" value="snakehips" id="right-selector-input" />
-                    <button class="btn">SEARCH</button>
-                </div>
-                <div id="right-crate" class="crate mb15">
-                </div>
-                <div id="right-crate-title" class="crate-title">
+                var params = {
+                    allowScriptAccess: "always"
+                };
+                var atts = {
+                    id: "right-player"
+                };
+                swfobject.embedSWF("http://www.youtube.com/v/" + start_vid_right + "&enablejsapi=1&playerapiid=yt-right-player&loop=1",
+                    "right-player", "425", "336", "8", null, null, params, atts);
+                </script>
+                <div id="right-selector" class="selector">
+                    <div class="mb15">
+                        <input type="text" value="snakehips" id="right-selector-input" />
+                        <button class="btn">SEARCH</button>
+                    </div>
+                    <div id="right-crate" class="crate mb15">
+                    </div>
+                    <div id="right-crate-title" class="crate-title">
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,7 +255,60 @@
             document.getElementById('left-selector-input').value = '';
         }
         </script>
+        <div class="row-fluid">
+        <div id="slider" class="col-md-4 col-md-offset-3 ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+            <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;" id="tsumami"></a>
+            <div id="error-message" style="display: none">だめ</div>
+        </div>
     </div>
+    <script type="text/javascript">
+    var tsumami, onFailure, onMessage, onSuccess, render, setup, view, left_player, right_player;
+
+    onSuccess = function(midiAccess) {
+        return setup(midiAccess);
+    };
+
+    onFailure = function(msg) {
+        document.querySelector('#slider').style.display = 'none';
+        return document.querySelector('#error-message').style.display = 'block';
+    };
+
+    if (navigator.requestMIDIAccess) {
+        navigator.requestMIDIAccess().then(onSuccess, onFailure);
+    } else {
+        onFailure();
+    }
+
+    setup = function(midi) {
+        midi.inputs.forEach(function(input) {
+            return input.onmidimessage = onMessage;
+        });
+        return window.requestAnimationFrame(render);
+    };
+
+    view = {
+        position: 0
+    };
+
+    onMessage = function(event) {
+        var data;
+        data = event.data;
+        if (data[0] === 176) {
+            return view.position = data[2];
+        }
+    };
+
+    tsumami = document.querySelector('#tsumami');
+
+    left_player = document.getElementById('left-player');
+
+    right_player = document.getElementById('right-player');
+
+    render = function() {
+        tsumami.style.left = view.position / 127 * 100　 + '%';
+        return window.requestAnimationFrame(render);
+    };
+    </script>
 </body>
 
 </html>
