@@ -214,21 +214,21 @@
 	}
 }
 
-function handleMIDIMessage1( event ) {
-	if( event.data.length>1) {
-		var data1 = event.data[0];
-		var data2 = event.data[2];
-		$(function() {
-		    $('#crossfader').slider({max: 127, min: 0,value: 0});
-		    $('#crossfader').bind('slide', function(event, ui) {
-		        var left_val = (1 - event.data[0])/127;
-		        var right_val = event.data[0]/127;
-		        left_player.setVolume(left_val);
-		        right_player.setVolume(right_val);     
-		    });
-		});
-	}
-}
+// function handleMIDIMessage1( event ) {
+// 	if( event.data.length>1) {
+// 		var data1 = event.data[0];
+// 		var data2 = event.data[2];
+// 		$(function() {
+// 		    $('#crossfader').slider({max: 127, min: 0,value: 0});
+// 		    $('#crossfader').bind('slide', function(event, ui) {
+// 		        var left_val = (1 - event.data[0])/127;
+// 		        var right_val = event.data[0]/127;
+// 		        left_player.setVolume(left_val);
+// 		        right_player.setVolume(right_val);     
+// 		    });
+// 		});
+// 	}
+// }
 </script>
 <style>
 #log {
