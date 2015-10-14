@@ -3,7 +3,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Web MIDI API</title>
-	<script type="text/javascript" src="log.js"></script>
 	<link rel="stylesheet" href="log.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -17,13 +16,9 @@
 	      range: "min",
 	      animate: true
 	    });
-	    function handleMIDIMessage1( event ) {
-		if( event.data.length>1) {
-			$( ".selector" ).slider( "value", event.data[2] );
-			}
-		}
 	  });
   </script>
+  <script type="text/javascript" src="log.js"></script>
 </head>
 <body>
 	<h1>MIDI をモニター</h1>
