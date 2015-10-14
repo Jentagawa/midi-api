@@ -14,16 +14,15 @@
 	      min: 0,
 	      max: 127,
 	      orientation: "horizontal",
-	      value: 60,
 	      range: "min",
 	      animate: true
 	    });
-	  });
-	  function handleMIDIMessage1( event ) {
+	    function handleMIDIMessage1( event ) {
 		if( event.data.length>1) {
 			$( ".selector" ).slider( "value", event.data[2] );
 			}
 		}
+	  });
   </script>
 </head>
 <body>
