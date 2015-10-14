@@ -198,6 +198,6 @@
 			log.innerText += str;
 			}
 			str ="\n"; log.innerText += str;
-			$( ".selector" ).slider( "value", event.data[2] );
+			$( "#master" ).slider( "value", event.data[2] );
 		}
 	}
