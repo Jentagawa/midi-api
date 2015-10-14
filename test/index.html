@@ -7,18 +7,8 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script>
-	  $(function() {
-	    $( "#master" ).slider({
-	      min: 0,
-	      max: 127,
-	      orientation: "horizontal",
-	      range: "min",
-	      animate: true
-	    });
-	  });
-  </script>
-  <script type="text/javascript" src="log.js"></script>
+	<script src="slider.js"></script>
+	<script type="text/javascript" src="log.js"></script>
 </head>
 <body>
 	<h1>MIDI をモニター</h1>
@@ -35,5 +25,14 @@
 	</pre>
 	<script>runTest();</script>
 	<div id="master" style="width:260px; margin:15px;"></div>
+	<div id="player1"></div>
+	<script src="player.js"></script>
+	<button id="play">再生</button>
+	<button id="pause">一時停止</button>
+	<button id="prev">1分前へ</button>
+	<button id="next">1分先へ</button>
+	<button id="volup">音量アップ</button>
+	<button id="voldown">音量ダウン</button>
+	<button id="mute">ミュート</button>
 </body>
 </html>
