@@ -102,3 +102,11 @@ function onPlayerStateChange(event) {
         console.log('頭出し済み');
     }
 }
+
+function onPlayerStateChange(event) {
+    var sliderVolume = $( "#maseter" ).slider( "value" );
+    $(function() {
+	    var currentVol = ytPlayer.getVolume();
+        ytPlayer.setVolume(sliderVolume/127*100);
+	  });
+}
