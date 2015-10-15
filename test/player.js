@@ -103,10 +103,7 @@ function onPlayerStateChange(event) {
     }
 }
 
-function onPlayerStateChange(event) {
     var sliderVolume = $( "#master" ).slider( "value" );
     $(function() {
-	    var currentVol = ytPlayer.getVolume();
-        ytPlayer.setVolume(sliderVolume/127*100);
+        ytPlayer.setVolume(sliderVolume / 127 * 100);
 	  });
-}
