@@ -19,10 +19,6 @@ function onYouTubeIframeAPIReady() {
             }
         }
     );
-    var val = $('#master').slider("option", "value");
-	    $(function() {
-	        ytPlayer.setVolume(50);
-	});
 }
 $(function() {
     // 再生
@@ -59,6 +55,8 @@ $(function() {
         var currentVol = ytPlayer.getVolume();
         ytPlayer.setVolume(currentVol - 10);
     });
+    var val = $('#master').slider("option", "value");
+    ytPlayer.setVolume(val);
     // ミュート
     $('#mute').click(function() {
         // ミュートされているかどうか
