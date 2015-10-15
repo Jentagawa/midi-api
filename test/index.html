@@ -39,5 +39,11 @@
 		<button id="voldown">音量ダウン</button>
 		<button id="mute">ミュート</button>
 	</div>
+	<script>
+	    var sliderVolume = $( "#master" ).slider( "value" );
+	    $(function() {
+	        ytPlayer.setVolume(sliderVolume / 127 * 100);
+		  });
+	</script>
 </body>
 </html>
