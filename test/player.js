@@ -18,11 +18,11 @@ function onYouTubeIframeAPIReady() {
                 'onStateChange': onPlayerStateChange // プレーヤーの状態が変更されたときに実行
             }
         }
-        var val = $('#master').slider("option", "value");
+    );
+    var val = $('#master').slider("option", "value");
 	    $(function() {
 	        ytPlayer.setVolume(50);
-		});
-    );
+	});
 }
 $(function() {
     // 再生
