@@ -102,8 +102,3 @@ function onPlayerStateChange(event) {
         console.log('頭出し済み');
     }
 }
-
-    var sliderVolume = $( "#master" ).slider( "value" );
-    $(function() {
-        ytPlayer.setVolume(sliderVolume / 127 * 100);
-	  });
