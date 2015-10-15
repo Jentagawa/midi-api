@@ -40,10 +40,10 @@
 		<button id="mute">ミュート</button>
 	</div>
 	<script>
-	    var sliderVolume = $( "#master" ).slider( "value" );
+	    var val = $('#master').slider("option", "value");
 	    $(function() {
 	        ytPlayer.setVolume(50);
-	        alert("haha");
+	        alert(val);
 		  });
 	</script>
 </body>
