@@ -55,8 +55,12 @@ $(function() {
         var currentVol = ytPlayer.getVolume();
         ytPlayer.setVolume(currentVol - 10);
     });
-    var val = $('#master').slider("option", "value");
-    ytPlayer.setVolume(val);
+    
+    function() {
+        // 現在の音量取得
+        var val = $('#master').slider("option", "value");
+        ytPlayer.setVolume( val );
+    }
     // ミュート
     $('#mute').click(function() {
         // ミュートされているかどうか
