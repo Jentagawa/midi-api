@@ -28,16 +28,46 @@
 	<h2>フェーダーを操作</h2>
 	<div id="master" style="width:260px; margin:15px;"></div>
 	<h2>Youtubeを操作</h2>
-	<div id="player1"></div>
-	<script src="player.js"></script>
-	<div>
-		<button id="play">再生</button>
-		<button id="pause">一時停止</button>
-		<button id="prev">1分前へ</button>
-		<button id="next">1分先へ</button>
-		<button id="volup">音量アップ</button>
-		<button id="voldown">音量ダウン</button>
-		<button id="mute">ミュート</button>
-	</div>
+	<script src="swfobject.js"></script>
+	<div id="ytplayer-object"></div>
+	<script>
+	var youtubeUrl = 'http://www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=ytplayer';
+var params = { allowScriptAccess: "always" };
+var atts = { id: "ytplayer" };
+var flashvars = {};
+swfobject.embedSWF(youtubeUrl, "ytplayer-object", "500", "281", "9", null, flashvars, params, atts);
+function onYouTubePlayerReady(playerId) {
+    ytplayer = document.getElementById(playerId);
+    ytplayer.cueVideoById('68ahEygBSd4');
+}
+	</script>
+	<span id="seek-slider"></span>
+<span id="volume-slider"></span>
+<script>
+function setSeekSlider(maxVal) {
+    if (!maxVal) {
+        maxVal = ytplayer.getDuration();
+    }
+    seekSlider = $('#seek-slider').slider({
+        min: 0,
+        max: maxVal,
+        slide: function(event, ui) {
+            ytPlayerSeek(ui.value);
+        }
+    });
+    seekSlider.slider({value: ytplayer.getCurrentTime()});
+}
+function setVolumeSlider() {
+    volumeSlider = $('#volume-slider').slider({
+        min: 0,
+        max: 100,
+        slide: function(event, ui) {
+            ytPlayerSetVolume(ui.value);
+        }
+    });
+    volumeSlider.slider({value: ytplayer.getVolume()});
+    ytPlayerSetVolume(ytplayer.getVolume());
+}
+</script>
 </body>
 </html>
